@@ -14,7 +14,7 @@ namespace ChaosVDotNet
 {
     public class Main : Script
     {
-        private ObjectPool pool;
+        private ObjectPool pool = new ObjectPool();
         private EffectManager effectManager;
         public Main()
         {
@@ -23,17 +23,17 @@ namespace ChaosVDotNet
             Thread();
         }
 
-        private void MainTick(object sender, EventArgs e)
+        protected void MainTick(object sender, EventArgs e)
         {
             pool.Process();
         }
 
-        private void Thread()
+        protected void Thread()
         {
             NativeMenu menu = new NativeMenu("ChaosVDotNet");
             pool.Add(menu);
 
-            effectManager.LoadEffects();
+            
         }
     }
 }

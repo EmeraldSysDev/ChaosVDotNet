@@ -8,7 +8,7 @@ using GTA;
 
 namespace ChaosVDotNet.Effects
 {
-    internal class Effect
+    public class Effect
     {
         public string Name { get; }
         private bool Running = false;
@@ -41,7 +41,12 @@ namespace ChaosVDotNet.Effects
             }
         }
 
-        internal void Thread()
+        public bool IsRunning()
+        {
+            return Running;
+        }
+
+        protected void Thread()
         {
             while (Running)
             {
