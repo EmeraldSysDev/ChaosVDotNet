@@ -1,0 +1,22 @@
+# Building
+bin/
+obj/
+intermediate/
+Debug/
+Release/
+
+# VS
+.vs/
+ipch/
+*.aps
+*.cachefile
+*.VC.db
+*.opendb
+*.opensdf
+*.user
+*.sdf
+*.suo
+
+# Temp OS Files
+.DS_Store
+Thumbs.db
