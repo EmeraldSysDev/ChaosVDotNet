@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -43,12 +44,15 @@ namespace ChaosVDotNet
                 NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.EffectName, eff.isRunning());
                 effectCheckbox.CheckboxChanged += (s, e) =>
                 {
+                    Debug.WriteLine("Checkbox changed");
                     if (effectCheckbox.Checked)
                     {
+                        Debug.WriteLine("Starting");
                         eff.Start();
                     }
                     else
                     {
+                        Debug.WriteLine("Stopping");
                         eff.Stop();
                     }
                 };

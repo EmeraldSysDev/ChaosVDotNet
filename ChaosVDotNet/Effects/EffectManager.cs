@@ -13,18 +13,15 @@ namespace ChaosVDotNet.Effects
     [ScriptAttributes(NoDefaultInstance = true)]
     public class EffectManager : Script
     {
-        private List<Effect> Loaded = new List<Effect>();
-        public EffectManager()
-        {
-
-        }
+        private readonly List<Effect> Loaded = new List<Effect>();
+        public EffectManager() { }
 
         public List<Effect> LoadAll()
         {
             Type[] types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(Effect))).ToArray();
             foreach (Type t in types)
             {
-                Effect eff = (Effect)Activator.CreateInstance(t);
+                Effect eff = (Effect)InstantiateScript(t);
                 Loaded.Add(eff);
             }
 

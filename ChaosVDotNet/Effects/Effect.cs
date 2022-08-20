@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -22,7 +23,15 @@ namespace ChaosVDotNet.Effects
         {
             EffectName = Name;
             Running = isRunning;
-            Thread();
+
+            Debug.WriteLine("Thread start!");
+            Tick += (s, e) =>
+            {
+                if (Running)
+                {
+                    OnTick?.Invoke(this, EventArgs.Empty);
+                }
+            };
         }
 
         public void Start()
@@ -46,15 +55,6 @@ namespace ChaosVDotNet.Effects
         public bool isRunning()
         {
             return Running;
-        }
-
-        protected void Thread()
-        {
-            while (Running)
-            {
-                OnTick?.Invoke(this, EventArgs.Empty);
-                Wait(500);
-            }
         }
     }
 }

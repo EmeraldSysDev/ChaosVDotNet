@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,12 +17,12 @@ namespace ChaosVDotNet.Effects.db
 
         private void _OnStart(object sender, EventArgs e)
         {
-            Console.WriteLine("Started!");
+            Debug.WriteLine("Started!");
         }
 
         private void _OnStop(object sender, EventArgs e)
         {
-            Console.WriteLine("Stopped!");
+            Debug.WriteLine("Stopped!");
         }
     }
 }
