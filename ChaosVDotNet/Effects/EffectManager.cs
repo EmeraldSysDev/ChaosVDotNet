@@ -10,9 +10,18 @@ namespace ChaosVDotNet.Effects
 {
     public class EffectManager
     {
-        public List<Effect> GetAllEffects()
+        public EffectManager()
         {
-            
+
+        }
+
+        public void LoadEffects()
+        {
+            Type[] types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(Effect))).ToArray();
+            foreach (Type t in types)
+            {
+                object eff = Activator.CreateInstance(t);
+            }
         }
     }
 }
