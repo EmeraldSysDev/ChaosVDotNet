@@ -6,22 +6,34 @@ using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
+using GTA;
+
 namespace ChaosVDotNet.Effects
 {
-    public class EffectManager
+    [ScriptAttributes(NoDefaultInstance = true)]
+    public class EffectManager : Script
     {
+        private List<Effect> Loaded = new List<Effect>();
         public EffectManager()
         {
 
         }
 
-        public void LoadEffects()
+        public List<Effect> LoadAll()
         {
             Type[] types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(Effect))).ToArray();
             foreach (Type t in types)
             {
-                object eff = Activator.CreateInstance(t);
+                Effect eff = (Effect)Activator.CreateInstance(t);
+                Loaded.Add(eff);
             }
+
+            return Loaded;
+        }
+
+        public List<Effect> GetLoaded()
+        {
+            return Loaded;
         }
     }
 }

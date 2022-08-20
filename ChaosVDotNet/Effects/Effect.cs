@@ -2,15 +2,17 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 using GTA;
 
 namespace ChaosVDotNet.Effects
 {
-    public class Effect
+    [ScriptAttributes(NoDefaultInstance = true)]
+    public class Effect : Script
     {
-        public string Name { get; }
+        public string EffectName { get; }
         private bool Running = false;
 
         public event EventHandler OnStart;
@@ -18,7 +20,7 @@ namespace ChaosVDotNet.Effects
         public event EventHandler OnTick;
         public Effect(string Name, bool isRunning = true)
         {
-            this.Name = Name;
+            EffectName = Name;
             Running = isRunning;
             Thread();
         }
@@ -41,7 +43,7 @@ namespace ChaosVDotNet.Effects
             }
         }
 
-        public bool IsRunning()
+        public bool isRunning()
         {
             return Running;
         }
@@ -51,6 +53,7 @@ namespace ChaosVDotNet.Effects
             while (Running)
             {
                 OnTick?.Invoke(this, EventArgs.Empty);
+                Wait(500);
             }
         }
     }
