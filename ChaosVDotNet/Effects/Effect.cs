@@ -20,6 +20,7 @@ namespace ChaosVDotNet.Effects
         {
             this.Name = Name;
             Running = isRunning;
+            Thread();
         }
 
         public void Start()
