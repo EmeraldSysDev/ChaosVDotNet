@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,7 +15,7 @@ namespace ChaosVDotNet
 {
     public class Main : Script
     {
-        private ObjectPool pool = new ObjectPool();
+        private readonly ObjectPool pool = new ObjectPool();
         private NativeMenu mainMenu;
 
         private EffectManager effectManager = InstantiateScript<EffectManager>();
@@ -41,22 +40,31 @@ namespace ChaosVDotNet
 
             foreach (Effect eff in loadedInit)
             {
-                NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.EffectName, eff.isRunning());
-                effectCheckbox.CheckboxChanged += (s, e) =>
+                if (eff.IsContinuous())
                 {
-                    Debug.WriteLine("Checkbox changed");
-                    if (effectCheckbox.Checked)
+                    NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.EffectName, eff.isRunning());
+                    effectCheckbox.CheckboxChanged += (s, e) =>
                     {
-                        Debug.WriteLine("Starting");
+                        if (effectCheckbox.Checked)
+                        {
+                            eff.Start();
+                        }
+                        else
+                        {
+                            eff.Stop();
+                        }
+                    };
+                    mainMenu.Add(effectCheckbox);
+                }
+                else
+                {
+                    NativeItem effectItem = new NativeItem(eff.EffectName);
+                    effectItem.Activated += (s, e) =>
+                    {
                         eff.Start();
-                    }
-                    else
-                    {
-                        Debug.WriteLine("Stopping");
-                        eff.Stop();
-                    }
-                };
-                mainMenu.Add(effectCheckbox);
+                    };
+                    mainMenu.Add(effectItem);
+                }
             }
         }
 

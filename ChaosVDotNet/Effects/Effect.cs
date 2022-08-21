@@ -13,25 +13,42 @@ namespace ChaosVDotNet.Effects
     [ScriptAttributes(NoDefaultInstance = true)]
     public class Effect : Script
     {
+        public enum EffectType
+        {
+            Test = -1,
+            Player,
+            Ped,
+            Vehicle,
+            Misc
+        }
+
         public string EffectName { get; }
+        public EffectType Type { get; }
+        private bool Continuous = false;
         private bool Running = false;
 
         public event EventHandler OnStart;
         public event EventHandler OnStop;
         public event EventHandler OnTick;
-        public Effect(string Name, bool isRunning = true)
+
+        public Effect(string Name, EffectType Type, bool isContinuous = false, bool isRunning = true)
         {
             EffectName = Name;
+            this.Type = Type;
+            Continuous = isContinuous;
             Running = isRunning;
 
             Debug.WriteLine("Thread start!");
-            Tick += (s, e) =>
+            if (isContinuous)
             {
-                if (Running)
+                Tick += (s, e) =>
                 {
-                    OnTick?.Invoke(this, EventArgs.Empty);
-                }
-            };
+                    if (Running)
+                    {
+                        OnTick?.Invoke(this, EventArgs.Empty);
+                    }
+                };
+            }
         }
 
         public void Start()
@@ -40,6 +57,7 @@ namespace ChaosVDotNet.Effects
             {
                 Running = true;
                 OnStart?.Invoke(this, EventArgs.Empty);
+                if (!Continuous) Stop();
             }
         }
 
@@ -55,6 +73,11 @@ namespace ChaosVDotNet.Effects
         public bool isRunning()
         {
             return Running;
+        }
+
+        public bool IsContinuous()
+        {
+            return Continuous;
         }
     }
 }

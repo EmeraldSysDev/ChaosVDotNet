@@ -16,6 +16,9 @@ namespace ChaosVDotNet.Effects
         private readonly List<Effect> Loaded = new List<Effect>();
         public EffectManager() { }
 
+        /// <summary>
+        /// Load every <see cref="Effect"/> into the <see cref="EffectManager"/>.
+        /// </summary>
         public List<Effect> LoadAll()
         {
             Type[] types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(Effect))).ToArray();
@@ -28,9 +31,38 @@ namespace ChaosVDotNet.Effects
             return Loaded;
         }
 
+        /// <summary>
+        /// Unload every <see cref="Effect"/> in the <see cref="EffectManager"/>. (WIP)
+        /// </summary>
+        public void UnloadAll() { }
+
+        /// <summary>
+        /// Get every loaded <see cref="Effect"/> in the <see cref="EffectManager"/>.
+        /// </summary>
         public List<Effect> GetLoaded()
         {
             return Loaded;
+        }
+
+        /// <summary>
+        /// Checks if <paramref name="eff"/> is loaded in the <see cref="EffectManager"/>.
+        /// </summary>
+        /// <param name="eff"></param>
+        /// <returns></returns>
+        public bool IsLoaded(Effect eff)
+        {
+            bool Result = false;
+
+            foreach (Effect loadedEff in Loaded)
+            {
+                if (loadedEff == eff)
+                {
+                    Result = true;
+                    break;
+                }
+            }
+
+            return Result;
         }
     }
 }

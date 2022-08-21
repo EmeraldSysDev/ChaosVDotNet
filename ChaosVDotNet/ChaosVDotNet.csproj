@@ -86,7 +86,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\db\Beyblades.cs" />
+    <Compile Include="Effects\db\Player\TPAll.cs" />
+    <Compile Include="Effects\db\Vehicle\Beyblades.cs" />
+    <Compile Include="Effects\db\Player\Forcefield.cs" />
+    <Compile Include="Effects\db\Vehicle\FullAccel.cs" />
+    <Compile Include="Effects\db\Misc\LowRender.cs" />
     <Compile Include="Effects\db\TestEffect.cs" />
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\EffectManager.cs" />
@@ -95,6 +99,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Effects\db\Ped\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
