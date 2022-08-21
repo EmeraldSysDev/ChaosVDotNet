@@ -59,9 +59,32 @@ namespace ChaosVDotNet.Effects
         }
 
         /// <summary>
+        /// Unload <paramref name="eff"/> from the <see cref="EffectManager"/>.
+        /// </summary>
+        public void Unload(Effect eff)
+        {
+            foreach (Effect loadedEff in Loaded)
+            {
+                if (loadedEff == eff)
+                {
+                    loadedEff.Abort();
+                    Loaded.Remove(loadedEff);
+                    break;
+                }
+            }
+        }
+
+        /// <summary>
         /// Unload every <see cref="Effect"/> in the <see cref="EffectManager"/>. (WIP)
         /// </summary>
-        public void UnloadAll() { }
+        public void Unload()
+        {
+            foreach (Effect eff in Loaded)
+            {
+                eff.Abort();
+            }
+            Loaded.Clear();
+        }
 
         /// <summary>
         /// Get every loaded <see cref="Effect"/> in the <see cref="EffectManager"/>.

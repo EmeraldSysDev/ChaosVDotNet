@@ -86,7 +86,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Effects\db\Ped\PhoneRing.cs" />
     <Compile Include="Effects\db\Player\TPAll.cs" />
     <Compile Include="Effects\db\Vehicle\Beyblades.cs" />
     <Compile Include="Effects\db\Player\Forcefield.cs" />
@@ -101,6 +100,8 @@
   <ItemGroup>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Effects\db\Ped\" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
