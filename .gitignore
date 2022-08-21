@@ -20,3 +20,6 @@ ipch/
 # Temp OS Files
 .DS_Store
 Thumbs.db
+
+packages/
+packages.config

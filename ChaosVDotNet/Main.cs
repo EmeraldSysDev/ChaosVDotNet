@@ -36,34 +36,37 @@ namespace ChaosVDotNet
             mainMenu = new NativeMenu("ChaosVDotNet");
             pool.Add(mainMenu);
 
-            List<Effect> loadedInit = effectManager.LoadAll();
+            List<Effect> loadedInit = effectManager.Load();
 
             foreach (Effect eff in loadedInit)
             {
-                if (eff.IsContinuous())
+                if (eff.Type != Effect.EffectType.Test)
                 {
-                    NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.EffectName, eff.isRunning());
-                    effectCheckbox.CheckboxChanged += (s, e) =>
+                    if (eff.IsContinuous())
                     {
-                        if (effectCheckbox.Checked)
+                        NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.EffectName, eff.isRunning());
+                        effectCheckbox.CheckboxChanged += (s, e) =>
+                        {
+                            if (effectCheckbox.Checked)
+                            {
+                                eff.Start();
+                            }
+                            else
+                            {
+                                eff.Stop();
+                            }
+                        };
+                        mainMenu.Add(effectCheckbox);
+                    }
+                    else
+                    {
+                        NativeItem effectItem = new NativeItem(eff.EffectName);
+                        effectItem.Activated += (s, e) =>
                         {
                             eff.Start();
-                        }
-                        else
-                        {
-                            eff.Stop();
-                        }
-                    };
-                    mainMenu.Add(effectCheckbox);
-                }
-                else
-                {
-                    NativeItem effectItem = new NativeItem(eff.EffectName);
-                    effectItem.Activated += (s, e) =>
-                    {
-                        eff.Start();
-                    };
-                    mainMenu.Add(effectItem);
+                        };
+                        mainMenu.Add(effectItem);
+                    }
                 }
             }
         }

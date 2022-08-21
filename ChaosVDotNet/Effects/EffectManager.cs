@@ -17,9 +17,18 @@ namespace ChaosVDotNet.Effects
         public EffectManager() { }
 
         /// <summary>
+        /// Load <paramref name="eff"/> into the <see cref="EffectManager"/>.
+        /// </summary>
+        public void Load(Effect eff)
+        {
+            Effect loadedEff = (Effect)InstantiateScript(eff.GetType());
+            Loaded.Add(loadedEff);
+        }
+
+        /// <summary>
         /// Load every <see cref="Effect"/> into the <see cref="EffectManager"/>.
         /// </summary>
-        public List<Effect> LoadAll()
+        public List<Effect> Load()
         {
             Type[] types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(Effect))).ToArray();
             foreach (Type t in types)
