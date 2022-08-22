@@ -8,7 +8,7 @@ using GTA;
 using GTA.Native;
 using GTA.Math;
 
-namespace ChaosVDotNet.Effects.db.Player
+namespace ChaosVDotNet.Effects.db
 {
     internal class TPAll : Effect
     {
