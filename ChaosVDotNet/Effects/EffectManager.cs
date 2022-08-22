@@ -32,6 +32,9 @@ namespace ChaosVDotNet.Effects
     public class EffectManager : Script
     {
         private readonly List<Effect> Loaded = new List<Effect>();
+        public event LoadEventHandler OnLoad;
+        public event UnloadEventHandler OnUnload;
+
         public EffectManager() { }
 
         /// <summary>
@@ -41,6 +44,7 @@ namespace ChaosVDotNet.Effects
         {
             Effect loadedEff = (Effect)InstantiateScript(eff.GetType());
             Loaded.Add(loadedEff);
+            OnLoad?.Invoke(this, new LoadArgs(loadedEff));
         }
 
         /// <summary>
@@ -48,11 +52,18 @@ namespace ChaosVDotNet.Effects
         /// </summary>
         public List<Effect> Load()
         {
+            if (Loaded.Any())
+            {
+                Unload();
+                Wait(1000);
+            }
+
             Type[] types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(Effect))).ToArray();
             foreach (Type t in types)
             {
                 Effect eff = (Effect)InstantiateScript(t);
                 Loaded.Add(eff);
+                OnLoad?.Invoke(this, new LoadArgs(eff));
             }
 
             return Loaded;
@@ -69,19 +80,21 @@ namespace ChaosVDotNet.Effects
                 {
                     loadedEff.Abort();
                     Loaded.Remove(loadedEff);
+                    OnUnload?.Invoke(this, new UnloadArgs(loadedEff));
                     break;
                 }
             }
         }
 
         /// <summary>
-        /// Unload every <see cref="Effect"/> in the <see cref="EffectManager"/>. (WIP)
+        /// Unload every <see cref="Effect"/> in the <see cref="EffectManager"/>.
         /// </summary>
         public void Unload()
         {
             foreach (Effect eff in Loaded)
             {
                 eff.Abort();
+                OnUnload?.Invoke(this, new UnloadArgs(eff));
             }
             Loaded.Clear();
         }

@@ -18,6 +18,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -35,12 +36,16 @@ namespace ChaosVDotNet
     {
         private readonly ObjectPool pool = new ObjectPool();
         private NativeMenu mainMenu;
+        private readonly Dictionary<Effect.EffectType, NativeMenu> typeMenus = new Dictionary<Effect.EffectType, NativeMenu>();
+        private NativeMenu debugMenu;
 
         private EffectManager effectManager = InstantiateScript<EffectManager>();
         public Main()
         {
             Tick += MainTick;
             KeyDown += OnKeyDown;
+            effectManager.OnLoad += OnLoad;
+            effectManager.OnUnload += OnUnload;
             Thread();
         }
 
@@ -54,36 +59,119 @@ namespace ChaosVDotNet
             mainMenu = new NativeMenu("ChaosVDotNet");
             pool.Add(mainMenu);
 
-            List<Effect> loadedInit = effectManager.Load();
+            string[] types = Enum.GetNames(typeof(Effect.EffectType));
 
-            foreach (Effect eff in loadedInit)
+            foreach (string type in types)
             {
-                if (eff.Type != Effect.EffectType.Test)
+                Effect.EffectType parsed = Util.ParseEnum<Effect.EffectType>(type);
+
+                if (parsed != Effect.EffectType.Test)
                 {
-                    if (eff.IsContinuous())
+                    NativeMenu typeMenu = new NativeMenu(type);
+                    mainMenu.AddSubMenu(typeMenu).Title = typeMenu.Title.Text;
+                    pool.Add(typeMenu);
+
+                    typeMenus.Add(parsed, typeMenu);
+                }
+            }
+
+            effectManager.Load();
+
+            debugMenu = new NativeMenu("Debug");
+            mainMenu.AddSubMenu(debugMenu).Title = "Debug";
+            pool.Add(debugMenu);
+
+            NativeItem debugLoad = new NativeItem("Load All");
+            debugLoad.Activated += (s, e) =>
+            {
+                effectManager.Load();
+            };
+            debugMenu.Add(debugLoad);
+
+            NativeItem debugUnload = new NativeItem("Unload All");
+            debugUnload.Activated += (s, e) =>
+            {
+                effectManager.Unload();
+            };
+            debugMenu.Add(debugUnload);
+        }
+
+        private void OnLoad(object sender, LoadArgs e)
+        {
+            Effect eff = e.Loaded;
+            if (eff.Type != Effect.EffectType.Test)
+            {
+                if (typeMenus.ContainsKey(eff.Type))
+                {
+                    NativeMenu menu = typeMenus[eff.Type];
+                    if (menu != null)
                     {
-                        NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.EffectName, eff.isRunning());
-                        effectCheckbox.CheckboxChanged += (s, e) =>
+                        if (eff.IsContinuous())
                         {
-                            if (effectCheckbox.Checked)
+                            NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.EffectName, eff.isRunning());
+                            effectCheckbox.CheckboxChanged += (s, e2) =>
+                            {
+                                if (effectCheckbox.Checked)
+                                {
+                                    eff.Start();
+                                }
+                                else
+                                {
+                                    eff.Stop();
+                                }
+                            };
+                            menu.Add(effectCheckbox);
+                        }
+                        else
+                        {
+                            NativeItem effectItem = new NativeItem(eff.EffectName);
+                            effectItem.Activated += (s, e2) =>
                             {
                                 eff.Start();
-                            }
-                            else
-                            {
-                                eff.Stop();
-                            }
-                        };
-                        mainMenu.Add(effectCheckbox);
+                            };
+                            menu.Add(effectItem);
+                        }
                     }
-                    else
+                }
+            }
+        }
+
+        private NativeItem GetItemWithTitle(NativeMenu menu, string title)
+        {
+            NativeItem result = null;
+
+            foreach (NativeItem item in menu.Items)
+            {
+                if (item.Title == title)
+                {
+                    result = item;
+                    break;
+                }
+            }
+
+            return result;
+        }
+
+        private void RemoveItemWithTitle(NativeMenu menu, string title)
+        {
+            NativeItem item = GetItemWithTitle(menu, title);
+            if (item != null)
+            {
+                menu.Remove(item);
+            }
+        }
+
+        private void OnUnload(object sender, UnloadArgs e)
+        {
+            Effect eff = e.Unloaded;
+            if (eff.Type != Effect.EffectType.Test)
+            {
+                if (typeMenus.ContainsKey(eff.Type))
+                {
+                    NativeMenu menu = typeMenus[eff.Type];
+                    if (menu != null)
                     {
-                        NativeItem effectItem = new NativeItem(eff.EffectName);
-                        effectItem.Activated += (s, e) =>
-                        {
-                            eff.Start();
-                        };
-                        mainMenu.Add(effectItem);
+                        RemoveItemWithTitle(menu, eff.EffectName);
                     }
                 }
             }
