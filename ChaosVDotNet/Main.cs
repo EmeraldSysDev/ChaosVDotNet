@@ -39,6 +39,7 @@ namespace ChaosVDotNet
         private readonly Dictionary<Effect.EffectType, NativeMenu> typeMenus = new Dictionary<Effect.EffectType, NativeMenu>();
         private NativeMenu debugMenu;
 
+        private UpdateManager updateManager = InstantiateScript<UpdateManager>();
         private EffectManager effectManager = InstantiateScript<EffectManager>();
         public Main()
         {
@@ -94,6 +95,21 @@ namespace ChaosVDotNet
                 effectManager.Unload();
             };
             debugMenu.Add(debugUnload);
+
+            NativeItem debugCheckUpdates = new NativeItem("Check for Updates");
+            debugCheckUpdates.Activated += (s, e) =>
+            {
+                Version loaded = updateManager.GetLoadedVersion();
+                ReleaseModel latest = updateManager.GetLatestInfo();
+
+                if (loaded < latest.Tag)
+                    GTA.UI.Notification.Show($"[ChaosVDotNet] A new version is available! You are running {loaded}, the latest available version is {latest.Tag}.");
+                else if (loaded > latest.Tag)
+                    GTA.UI.Notification.Show("[ChaosVDotNet] You are running a version that has not yet been released to the public or has been built manually.");
+                else
+                    GTA.UI.Notification.Show("[ChaosVDotNet] No new version is available.");
+            };
+            debugMenu.Add(debugCheckUpdates);
         }
 
         private void OnLoad(object sender, LoadArgs e)
