@@ -118,6 +118,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Effects\db\Misc\Airstrike.cs" />
+    <Compile Include="Effects\db\Misc\Earthquake.cs" />
     <Compile Include="Effects\db\Misc\Gravity.cs" />
     <Compile Include="Effects\db\Ped\IgniteNearby.cs" />
     <Compile Include="Effects\db\Ped\PropHunt.cs" />
