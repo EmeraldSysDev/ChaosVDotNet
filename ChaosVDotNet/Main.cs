@@ -103,11 +103,11 @@ namespace ChaosVDotNet
                 ReleaseModel latest = updateManager.GetLatestInfo();
 
                 if (loaded < latest.Tag)
-                    GTA.UI.Notification.Show($"[ChaosVDotNet] A new version is available! You are running {loaded}, the latest available version is {latest.Tag}.");
+                    GTA.UI.Notification.Show($"~h~[ChaosVDotNet]~w~ A new version is available! You are running {loaded}, the latest available version is {latest.Tag}.");
                 else if (loaded > latest.Tag)
-                    GTA.UI.Notification.Show("[ChaosVDotNet] You are running a version that has not yet been released to the public or has been built manually.");
+                    GTA.UI.Notification.Show("~h~[ChaosVDotNet]~w~ You are running a version that has not yet been released to the public or has been built manually.");
                 else
-                    GTA.UI.Notification.Show("[ChaosVDotNet] No new version is available.");
+                    GTA.UI.Notification.Show("~h~[ChaosVDotNet]~w~ No new version is available.");
             };
             debugMenu.Add(debugCheckUpdates);
         }
