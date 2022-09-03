@@ -63,7 +63,7 @@ jobs:
         run: nuget restore ChaosVDotNet.sln
       
       - name: Build
-        run: msbuild ChaosVDotNet.sln /t:Rebuild -property:Configuration=Release -p:Platform=x64 -p:VisualStudioVersion=15.0
+        run: msbuild ChaosVDotNet.sln /t:Rebuild -property:Configuration=Release -p:Platform=x64 -p:VisualStudioVersion=15.0 -p:AllowUnsafeBlocks=true
       
       - name: Test
         run: dotnet test --no-build --verbosity normal
