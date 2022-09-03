@@ -82,7 +82,7 @@
     </Reference>
     <Reference Include="ScriptHookVDotNet3, Version=3.0.2.0, Culture=neutral, processorArchitecture=AMD64">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\Program Files (x86)\Steam\steamapps\common\Grand Theft Auto V\ScriptHookVDotNet3.dll</HintPath>
+      <HintPath>Resources\ScriptHookVDotNet3.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Buffers, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
@@ -121,8 +121,11 @@
     <Compile Include="Effects\db\Misc\Earthquake.cs" />
     <Compile Include="Effects\db\Misc\Gravity.cs" />
     <Compile Include="Effects\db\Ped\IgniteNearby.cs" />
+    <Compile Include="Effects\db\Ped\Mercenaries.cs" />
+    <Compile Include="Effects\db\Ped\PhoneRing.cs" />
     <Compile Include="Effects\db\Ped\PropHunt.cs" />
     <Compile Include="Effects\db\Player\Kickflip.cs" />
+    <Compile Include="Effects\db\Player\Teleport.cs" />
     <Compile Include="Effects\db\Player\TPAll.cs" />
     <Compile Include="Effects\db\Vehicle\Beyblades.cs" />
     <Compile Include="Effects\db\Player\Forcefield.cs" />
@@ -130,6 +133,7 @@
     <Compile Include="Effects\db\Vehicle\FullAccel.cs" />
     <Compile Include="Effects\db\Misc\LowRender.cs" />
     <Compile Include="Effects\db\TestEffect.cs" />
+    <Compile Include="Effects\db\Vehicle\PropModels.cs" />
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\EffectManager.cs" />
     <Compile Include="Effects\LoadArgs.cs" />
