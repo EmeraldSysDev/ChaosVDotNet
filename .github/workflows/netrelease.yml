@@ -1,0 +1,69 @@
+name: .NET (Release)
+
+on: push
+
+jobs:
+  paths-filter:
+    name: Source Changes
+    runs-on: ubuntu-latest
+
+    outputs:
+      willBuild: ${{ steps.filter.outputs.source }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Filter
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            source:
+              - 'ChaosVDotNet/**'
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Lint
+        uses: github/super-linter@v4
+        env:
+          VALIDATE_ALL_CODEBASE: false
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  
+  build:
+    name: Build
+    runs-on: windows-latest
+    needs: paths-filter
+    if: needs.paths-filter.outputs.willBuild == 'true'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Setup MSBuild
+        uses: microsoft/setup-msbuild@v1.1
+      
+      - name: Setup NuGet
+        uses: NuGet/setup-nuget@v1.0.7
+      
+      - name: Restore Packages
+        run: nuget restore ChaosVDotNet.sln
+      
+      - name: Build
+        run: msbuild ChaosVDotNet.sln /t:Rebuild -property:Configuration=Release -p:Platform=x64 -p:VisualStudioVersion=15.0
+      
+      - name: Test
+        run: dotnet test --no-build --verbosity normal
