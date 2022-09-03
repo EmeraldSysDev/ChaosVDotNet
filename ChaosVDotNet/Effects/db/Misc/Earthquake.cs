@@ -49,7 +49,10 @@ namespace ChaosVDotNet.Effects.db
             Ped[] peds = World.GetAllPeds();
             foreach (Ped ped in peds)
             {
-                entities.Add(ped);
+                if (!ped.IsPlayer)
+                {
+                    entities.Add(ped);
+                }
             }
 
             foreach (Entity entity in entities)
