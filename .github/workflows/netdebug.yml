@@ -45,7 +45,7 @@ jobs:
     name: Build
     runs-on: windows-latest
     needs: paths-filter
-    if: needs.paths-filter.outputs.willBuild == 'true'
+    if: ${{ needs.paths-filter.outputs.willBuild == 'true' || startsWith(github.event.head_commit.message, '[build]') }}
 
     steps:
       - name: Checkout
