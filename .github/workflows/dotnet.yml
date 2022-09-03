@@ -3,6 +3,27 @@ name: .NET
 on: [push, pull_request]
 
 jobs:
+  paths-filter:
+    name: Source Changes
+    runs-on: ubuntu-latest
+
+    outputs:
+      willBuild: ${{ steps.filter.outputs.source }}
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+      
+      - name: Filter
+        id: filter
+        uses: dorny/paths-filter@v2
+        with:
+          filters: |
+            source:
+              - 'ChaosVDotNet/**'
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -23,6 +44,8 @@ jobs:
   build:
     name: Build
     runs-on: windows-latest
+    needs: paths-filter
+    if: needs.paths-filter.outputs.willBuild == 'true'
 
     steps:
       - name: Checkout
