@@ -64,6 +64,7 @@ namespace ChaosVDotNet.Effects
                 Effect eff = (Effect)InstantiateScript(t);
                 Loaded.Add(eff);
                 OnLoad?.Invoke(this, new LoadArgs(eff));
+                Wait(100);
             }
 
             return Loaded;
