@@ -61,9 +61,15 @@ namespace ChaosVDotNet.Effects
             Type[] types = Assembly.GetExecutingAssembly().GetTypes().Where(t => t.IsSubclassOf(typeof(Effect))).ToArray();
             foreach (Type t in types)
             {
+                DateTime startTime, endTime;
+                startTime = DateTime.Now;
+                GTA.UI.Notification.Show($"[EffectManager] Loading {t.Name}");
                 Effect eff = (Effect)InstantiateScript(t);
                 Loaded.Add(eff);
                 OnLoad?.Invoke(this, new LoadArgs(eff));
+                endTime = DateTime.Now;
+                double elapsed = (endTime - startTime).TotalMilliseconds;
+                GTA.UI.Notification.Show($"[EffectManager] Loaded {t.Name} in {elapsed} ms");
             }
 
             return Loaded;
