@@ -70,7 +70,6 @@ namespace ChaosVDotNet.Effects
                 endTime = DateTime.Now;
                 double elapsed = (endTime - startTime).TotalMilliseconds;
                 GTA.UI.Notification.Show($"[EffectManager] Loaded {t.Name} in {elapsed} ms");
-                Wait(1000);
             }
 
             return Loaded;
