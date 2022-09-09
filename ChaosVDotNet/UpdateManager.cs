@@ -49,7 +49,7 @@ namespace ChaosVDotNet
                 SecurityProtocolType.Tls13;
 
             client.BaseAddress = new Uri(BASE_URL);
-            client.DefaultRequestHeaders.Add("User-Agent", "ChaosVDotNet-v1.0.1.2/UpdateManager");
+            client.DefaultRequestHeaders.Add("User-Agent", "ChaosVDotNet-v1.0.1.7/UpdateManager");
             client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
         }
 
