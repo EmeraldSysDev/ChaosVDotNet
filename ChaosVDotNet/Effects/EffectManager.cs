@@ -63,13 +63,13 @@ namespace ChaosVDotNet.Effects
             {
                 DateTime startTime, endTime;
                 startTime = DateTime.Now;
-                GTA.UI.Notification.Show($"[EffectManager] Loading {t.Name}");
+                GTA.UI.Notification.Show($"~h~[EffectManager] Loading {t.Name}~s~");
                 Effect eff = (Effect)InstantiateScript(t);
                 Loaded.Add(eff);
                 OnLoad?.Invoke(this, new LoadArgs(eff));
                 endTime = DateTime.Now;
                 double elapsed = (endTime - startTime).TotalMilliseconds;
-                GTA.UI.Notification.Show($"[EffectManager] Loaded {t.Name} in {elapsed} ms");
+                GTA.UI.Notification.Show($"~h~[EffectManager] Loaded {t.Name} in {elapsed} ms~s~");
             }
 
             return Loaded;

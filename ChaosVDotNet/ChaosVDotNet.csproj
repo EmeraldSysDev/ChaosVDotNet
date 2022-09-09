@@ -123,6 +123,7 @@
     <Compile Include="Effects\db\Misc\Earthquake.cs" />
     <Compile Include="Effects\db\Misc\Gravity.cs" />
     <Compile Include="Effects\db\Ped\AttackPlayer.cs" />
+    <Compile Include="Effects\db\Ped\DrivebyPlayer.cs" />
     <Compile Include="Effects\db\Ped\IgniteNearby.cs" />
     <Compile Include="Effects\db\Ped\Mercenaries.cs" />
     <Compile Include="Effects\db\Ped\PhoneRing.cs" />
