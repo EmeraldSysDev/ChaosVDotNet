@@ -11,12 +11,14 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class AttackPlayer : Effect
     {
+        private readonly List<Ped> Peds = new List<Ped>();
         private RelationshipGroup group;
 
         public AttackPlayer() : base("All Peds Attack Player", EffectType.Ped, true, false)
         {
             OnStart += _OnStart;
             OnTick += _OnTick;
+            OnStop += _OnStop;
         }
 
         private void _OnStart(object sender, EventArgs e)
@@ -50,8 +52,28 @@ namespace ChaosVDotNet.Effects.db
                     Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, ped, 2, true);
 
                     ped.Task.FightAgainst(playerPed);
+                    Peds.Add(ped);
                 }
             }
+        }
+
+        private void _OnStop(object sender, EventArgs e)
+        {
+            foreach (Ped ped in Peds)
+            {
+                if (ped.Exists())
+                {
+                    ped.RelationshipGroup = null;
+
+                    Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, ped, 5, false);
+                    Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, ped, 46, false);
+                    Function.Call(Hash.SET_PED_COMBAT_ATTRIBUTES, ped, 2, false);
+
+                    ped.Task.ClearAllImmediately();
+                }
+            }
+
+            Peds.Clear();
         }
     }
 }
