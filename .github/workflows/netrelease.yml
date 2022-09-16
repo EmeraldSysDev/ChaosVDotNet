@@ -1,6 +1,9 @@
 name: .NET (Release)
 
-on: push
+on:
+  push:
+    branches:
+      - '*'
 
 jobs:
   paths-filter:
