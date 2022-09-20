@@ -1,8 +1,7 @@
-<a name="readme-top"></a>
-<!-- PROJECT INFO -->
 # ChaosVDotNet
 
 A replica of Chaos Mod V but in .NET.
+<a name="readme-top"></a>
 
 <!-- NEW EFFECTS -->
 ## Adding new effects
@@ -62,7 +61,7 @@ Your effect will automatically be loaded.
 
 Any contributions you make are **greatly appreciated**.
 
-If you have an effect to add that is chaotic enough to be included or any bug fixes to patch, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+If you have an effect to add that is chaotic enough to be included or any bugfixes to patch, please fork the repository and create a pull request. You can also simply open an issue with the tag "enhancement".
 Don't forget to give this project a star. Thanks!
 
 1. Fork the project
