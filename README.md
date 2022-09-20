@@ -1,7 +1,10 @@
+<a name="readme-top"></a>
+<!-- PROJECT INFO -->
 # ChaosVDotNet
 
 A replica of Chaos Mod V but in .NET.
 
+<!-- NEW EFFECTS -->
 ## Adding new effects
 
 You can easily integrate your own effects using class files.
@@ -51,3 +54,31 @@ namespace ChaosVDotNet.Effects.db
 ```
 
 Your effect will automatically be loaded.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- CONTRIBUTING -->
+## Contributing
+
+Any contributions you make are **greatly appreciated**.
+
+If you have an effect to add that is chaotic enough to be included or any bug fixes to patch, please fork the repo and create a pull request. You can also simply open an issue with the tag "enhancement".
+Don't forget to give this project a star. Thanks!
+
+1. Fork the project
+2. Create your feature branch (`git checkout -b patch-1`)
+3. Commit your changes to the feature branch (`git commit -m 'Add some code'`)
+4. Push to the feature branch (`git push origin patch-1`)
+5. Open a PR
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
+
+<!-- LICENSE -->
+## License
+
+Copyright (c) 2022 Ryan Omasta - ryand@emeraldsys.xyz
+All rights reserved.
+
+Distributed under the GPL-3.0 License (GNU General Public License v3.0). See `LICENSE` for more information. All files except for effect files will have a header explaining `LICENSE` information.
+
+<p align="right">(<a href="#readme-top">back to top</a>)</p>
