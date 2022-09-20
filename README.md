@@ -76,8 +76,8 @@ Don't forget to give this project a star. Thanks!
 ## Roadmap
 
 - [x] Effect manager for loading and unloading effects
-- [] All effects ported from original ChaosModV
-- [] Greatly reduce lag when loading effects
+- [ ] All effects ported from original ChaosModV
+- [ ] Greatly reduce lag when loading effects
 
 See the [open issues](https://github.com/EmeraldSysDev/ChaosVDotNet/issues) for a full list of proposed features (and known issues).
 
