@@ -31,7 +31,7 @@ namespace ChaosVDotNet.Effects.db
         private static EnemyGroup heliGroup;
         private static EnemyGroup mesaGroup;
 
-        public Mercenaries() : base("Mercenaries", EffectType.Ped, true, false)
+        public Mercenaries() : base("effect_mercenaries", "Mercenaries", EffectType.Ped, true, false)
         {
             OnStart += _OnStart;
             OnStop += _OnStop;

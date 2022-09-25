@@ -18,7 +18,7 @@ namespace ChaosVDotNet.Effects.db
 
         internal class VeryLowGravity : Effect
         {
-            public VeryLowGravity() : base("Very Low Gravity", EffectType.Misc, true, false)
+            public VeryLowGravity() : base("effect_gravity_low", "Very Low Gravity", EffectType.Misc, true, false)
             {
                 OnTick += _OnTick;
                 OnStop += _OnStop;
@@ -32,7 +32,7 @@ namespace ChaosVDotNet.Effects.db
 
         internal class InsaneGravity : Effect
         {
-            public InsaneGravity() : base("Insane Gravity", EffectType.Misc, true, false)
+            public InsaneGravity() : base("effect_gravity_insane", "Insane Gravity", EffectType.Misc, true, false)
             {
                 OnTick += _OnTick;
                 OnStop += _OnStop;

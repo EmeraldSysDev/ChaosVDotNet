@@ -13,7 +13,7 @@ namespace ChaosVDotNet.Effects.db
         private readonly Dictionary<Vehicle, Prop> vehPropsMap;
         private readonly List<Model> availPropModels;
 
-        public PropModels() : base("Prop Models", EffectType.Vehicle, true, false)
+        public PropModels() : base("effect_propmodels", "Prop Models", EffectType.Vehicle, true, false)
         {
             vehPropsMap = new Dictionary<Vehicle, Prop>();
             availPropModels = new List<Model>();

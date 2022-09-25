@@ -11,7 +11,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class Earthquake : Effect
     {
-        public Earthquake() : base("Earthquake", EffectType.Misc, true, false)
+        public Earthquake() : base("effect_earthquake", "Earthquake", EffectType.Misc, true, false)
         {
             OnStop += _OnStop;
             OnTick += _OnTick;

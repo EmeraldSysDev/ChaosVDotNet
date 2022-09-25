@@ -11,7 +11,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class PhoneRing : Effect
     {
-        public PhoneRing() : base("Whose Phone Is Ringing?", EffectType.Ped, true, false)
+        public PhoneRing() : base("effect_phonering", "Whose Phone Is Ringing?", EffectType.Ped, true, false)
         {
             OnTick += _OnTick;
             OnStop += _OnStop;

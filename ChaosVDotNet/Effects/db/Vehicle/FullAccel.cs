@@ -11,7 +11,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class FullAccel : Effect
     {
-        public FullAccel() : base("Full Acceleration", EffectType.Vehicle, true, false)
+        public FullAccel() : base("effect_fullaccel", "Full Acceleration", EffectType.Vehicle, true, false)
         {
             OnTick += _OnTick;
         }
@@ -22,8 +22,9 @@ namespace ChaosVDotNet.Effects.db
             foreach (Vehicle veh in vehs)
             {
                 Model vehModel = veh.Model;
+                bool vehBraking = veh.BrakePower > 0.0f;
 
-                if (veh.IsOnAllWheels || veh.IsPlane || veh.IsHelicopter)
+                if (!vehBraking && (veh.IsOnAllWheels || veh.IsPlane || veh.IsHelicopter))
                 {
                     veh.ForwardSpeed = Function.Call<float>(Hash.GET_VEHICLE_MODEL_ESTIMATED_MAX_SPEED, vehModel) * 2;
                 }

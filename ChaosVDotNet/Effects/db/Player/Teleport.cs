@@ -70,7 +70,7 @@ namespace ChaosVDotNet.Effects.db
 
         internal class Waypoint : Effect
         {
-            public Waypoint() : base("Teleport to Waypoint", EffectType.Player, false, false)
+            public Waypoint() : base("effect_tp_waypoint", "Teleport to Waypoint", EffectType.Player, false, false)
             {
                 OnStart += _OnStart;
             }

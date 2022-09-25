@@ -14,7 +14,7 @@ namespace ChaosVDotNet.Effects.db
         private readonly List<Ped> Peds = new List<Ped>();
         private RelationshipGroup group;
 
-        public AttackPlayer() : base("All Peds Attack Player", EffectType.Ped, true, false)
+        public AttackPlayer() : base("effect_pedsattackplr", "All Peds Attack Player", EffectType.Ped, true, false)
         {
             OnStart += _OnStart;
             OnTick += _OnTick;

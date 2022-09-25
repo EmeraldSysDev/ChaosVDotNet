@@ -12,7 +12,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class Forcefield : Effect
     {
-        public Forcefield() : base("Forcefield", EffectType.Player, true, false)
+        public Forcefield() : base("effect_forcefield", "Forcefield", EffectType.Player, true, false)
         {
             OnTick += _OnTick;
         }

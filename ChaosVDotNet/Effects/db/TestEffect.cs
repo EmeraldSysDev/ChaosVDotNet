@@ -9,7 +9,7 @@ namespace ChaosVDotNet.Effects.db
 {
     public class TestEffect : Effect
     {
-        public TestEffect() : base("TestEffect", EffectType.Test, false, false)
+        public TestEffect() : base("effect_test", "TestEffect", EffectType.Test, false, false)
         {
             OnStart += _OnStart;
             OnStop += _OnStop;

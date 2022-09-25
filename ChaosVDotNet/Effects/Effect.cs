@@ -40,7 +40,8 @@ namespace ChaosVDotNet.Effects
             Misc
         }
 
-        public string EffectName { get; }
+        public string Id { get; }
+        public string Name { get; }
         public EffectType Type { get; }
         private bool Continuous = false;
         private bool Running = false;
@@ -49,9 +50,9 @@ namespace ChaosVDotNet.Effects
         public event EventHandler OnStop;
         public event EventHandler OnTick;
 
-        public Effect(string Name, EffectType Type, bool isContinuous = false, bool isRunning = true)
+        public Effect(string Id, string Name, EffectType Type, bool isContinuous = false, bool isRunning = true)
         {
-            EffectName = Name;
+            this.Name = Name;
             this.Type = Type;
             Continuous = isContinuous;
             Running = isRunning;

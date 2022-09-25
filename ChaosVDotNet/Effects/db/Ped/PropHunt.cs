@@ -17,7 +17,7 @@ namespace ChaosVDotNet.Effects.db
         private readonly Dictionary<Ped, Prop> pedPropsMap;
         private readonly List<Model> availablePropModels;
 
-        public PropHunt() : base("Prop Hunt", EffectType.Ped, true, false)
+        public PropHunt() : base("effect_prophunt", "Prop Hunt", EffectType.Ped, true, false)
         {
             Rand = new Random();
             pedPropsMap = new Dictionary<Ped, Prop>();

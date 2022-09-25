@@ -11,7 +11,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class LowRender : Effect
     {
-        public LowRender() : base("Low Render", EffectType.Misc, true, false)
+        public LowRender() : base("effect_lowpoly", "Low Render", EffectType.Misc, true, false)
         {
             OnTick += _OnTick;
         }

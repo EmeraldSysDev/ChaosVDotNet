@@ -11,7 +11,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class IgniteNearby : Effect
     {
-        public IgniteNearby() : base("Ignite All Nearby", EffectType.Ped, false, false)
+        public IgniteNearby() : base("effect_igniteall", "Ignite All Nearby", EffectType.Ped, false, false)
         {
             OnStart += _OnStart;
         }

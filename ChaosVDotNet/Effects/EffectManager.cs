@@ -133,5 +133,24 @@ namespace ChaosVDotNet.Effects
 
             return Result;
         }
+
+        /// <summary>
+        /// Gets all <see cref="Effect"/>s that are running in the <see cref="EffectManager"/>.
+        /// </summary>
+        /// <returns></returns>
+        public List<Effect> GetRunning()
+        {
+            List<Effect> Running = new List<Effect>();
+
+            foreach (Effect eff in Loaded)
+            {
+                if (eff.isRunning())
+                {
+                    Running.Add(eff);
+                }
+            }
+
+            return Running;
+        }
     }
 }

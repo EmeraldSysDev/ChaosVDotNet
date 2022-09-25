@@ -16,7 +16,7 @@ namespace ChaosVDotNet.Effects.db
         private static int lastAirStrike = 0;
         private static WeaponAsset airstrikeModel;
 
-        public Airstrike() : base("Airstrike Inbound", EffectType.Misc, true, false)
+        public Airstrike() : base("effect_airstrike", "Airstrike Inbound", EffectType.Misc, true, false)
         {
             OnStart += _OnStart;
             OnStop += _OnStop;

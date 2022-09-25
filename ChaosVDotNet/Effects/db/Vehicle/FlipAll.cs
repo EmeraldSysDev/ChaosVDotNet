@@ -13,7 +13,7 @@ namespace ChaosVDotNet.Effects.db
     {
         private static readonly Random Rand = new Random();
 
-        public FlipAll() : base("Flip All Vehicles", EffectType.Vehicle, false, false)
+        public FlipAll() : base("effect_flipallvehs", "Flip All Vehicles", EffectType.Vehicle, false, false)
         {
             OnStart += _OnStart;
         }

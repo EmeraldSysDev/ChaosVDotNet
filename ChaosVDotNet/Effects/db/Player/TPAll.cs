@@ -12,7 +12,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class TPAll : Effect
     {
-        public TPAll() : base("Teleport Everything to Player", EffectType.Player, false, false)
+        public TPAll() : base("effect_tp_all", "Teleport Everything to Player", EffectType.Player, false, false)
         {
             OnStart += _OnStart;
         }

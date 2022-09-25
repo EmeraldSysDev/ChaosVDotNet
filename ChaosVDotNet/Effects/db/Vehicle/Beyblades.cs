@@ -13,7 +13,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class Beyblades : Effect
     {
-        public Beyblades() : base("Beyblades", EffectType.Vehicle, true, false)
+        public Beyblades() : base("effect_beyblades", "Beyblades", EffectType.Vehicle, true, false)
         {
             OnTick += _OnTick;
             OnStop += _OnStop;

@@ -11,7 +11,7 @@ namespace ChaosVDotNet.Effects.db
 {
     internal class Kickflip : Effect
     {
-        public Kickflip() : base("Kickflip", EffectType.Player, false, false)
+        public Kickflip() : base("effect_kickflip", "Kickflip", EffectType.Player, false, false)
         {
             OnStart += _OnStart;
         }

@@ -55,6 +55,11 @@ namespace ChaosVDotNet
             pool.Process();
         }
 
+        protected void DebugNotif(string msg)
+        {
+            GTA.UI.Notification.Show($"~h~[ChaosVDotNet/Debug]~s~ {msg}");
+        }
+
         protected void Thread()
         {
             mainMenu = new NativeMenu("ChaosVDotNet");
@@ -81,6 +86,50 @@ namespace ChaosVDotNet
             debugMenu = new NativeMenu("Debug");
             mainMenu.AddSubMenu(debugMenu).Title = "Debug";
             pool.Add(debugMenu);
+
+            NativeMenu debugVehicleMenu = new NativeMenu("Vehicle");
+            debugMenu.AddSubMenu(debugVehicleMenu).Title = "Vehicle";
+            pool.Add(debugVehicleMenu);
+
+            NativeItem debugVehBrakeForce = new NativeItem("Brake Force");
+            debugVehBrakeForce.Activated += (s, e) =>
+            {
+                Player player = Game.Player;
+                Ped playerPed = player.Character;
+                if (playerPed != null)
+                {
+                    if (playerPed.IsInVehicle())
+                    {
+                        Vehicle veh = playerPed.CurrentVehicle;
+                        HandlingData handlingData = veh.HandlingData;
+                        if (handlingData != null)
+                        {
+                            DebugNotif(handlingData.BrakeForce.ToString());
+                        }
+                    }
+                }
+            };
+            debugVehicleMenu.Add(debugVehBrakeForce);
+
+            NativeItem debugVehHBrakeForce = new NativeItem("Handbrake Force");
+            debugVehHBrakeForce.Activated += (s, e) =>
+            {
+                Player player = Game.Player;
+                Ped playerPed = player.Character;
+                if (playerPed != null)
+                {
+                    if (playerPed.IsInVehicle())
+                    {
+                        Vehicle veh = playerPed.CurrentVehicle;
+                        HandlingData handlingData = veh.HandlingData;
+                        if (handlingData != null)
+                        {
+                            DebugNotif(handlingData.HandBrakeForce.ToString());
+                        }
+                    }
+                }
+            };
+            debugVehicleMenu.Add(debugVehHBrakeForce);
 
             NativeItem debugLoad = new NativeItem("Load All");
             debugLoad.Activated += (s, e) =>
@@ -124,7 +173,7 @@ namespace ChaosVDotNet
                     {
                         if (eff.IsContinuous())
                         {
-                            NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.EffectName, eff.isRunning());
+                            NativeCheckboxItem effectCheckbox = new NativeCheckboxItem(eff.Name, eff.isRunning());
                             effectCheckbox.CheckboxChanged += (s, e2) =>
                             {
                                 if (effectCheckbox.Checked)
@@ -140,7 +189,7 @@ namespace ChaosVDotNet
                         }
                         else
                         {
-                            NativeItem effectItem = new NativeItem(eff.EffectName);
+                            NativeItem effectItem = new NativeItem(eff.Name);
                             effectItem.Activated += (s, e2) =>
                             {
                                 eff.Start();
@@ -187,7 +236,7 @@ namespace ChaosVDotNet
                     NativeMenu menu = typeMenus[eff.Type];
                     if (menu != null)
                     {
-                        RemoveItemWithTitle(menu, eff.EffectName);
+                        RemoveItemWithTitle(menu, eff.Name);
                     }
                 }
             }

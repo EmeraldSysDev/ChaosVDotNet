@@ -12,7 +12,7 @@ namespace ChaosVDotNet.Effects.db
     internal class DrivebyPlayer : Effect
     {
         private readonly List<Ped> Peds = new List<Ped>();
-        public DrivebyPlayer() : base("Peds Drive By Player", EffectType.Ped, true, false)
+        public DrivebyPlayer() : base("effect_pedsdrivebyplr", "Peds Drive By Player", EffectType.Ped, true, false)
         {
             OnTick += _OnTick;
             OnStop += _OnStop;
