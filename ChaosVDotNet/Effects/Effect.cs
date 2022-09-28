@@ -38,9 +38,9 @@ namespace ChaosVDotNet.Effects
         private bool Running = false;
 
         // Internal events
-        internal event EventHandler OnStart;
-        internal event EventHandler OnStop;
-        internal event EventHandler OnTick;
+        private protected event EventHandler OnStart;
+        private protected event EventHandler OnStop;
+        private protected event EventHandler OnTick;
 
         // Logging events
         public event LogEventHandler OnLog;
