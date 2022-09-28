@@ -36,7 +36,7 @@ namespace ChaosVDotNet
     {
         private readonly ObjectPool pool = new ObjectPool();
         private NativeMenu mainMenu;
-        private readonly Dictionary<Effect.EffectType, NativeMenu> typeMenus = new Dictionary<Effect.EffectType, NativeMenu>();
+        private readonly Dictionary<EffectType, NativeMenu> typeMenus = new Dictionary<EffectType, NativeMenu>();
         private NativeMenu debugMenu;
 
         private UpdateManager updateManager = InstantiateScript<UpdateManager>();
@@ -65,13 +65,13 @@ namespace ChaosVDotNet
             mainMenu = new NativeMenu("ChaosVDotNet");
             pool.Add(mainMenu);
 
-            string[] types = Enum.GetNames(typeof(Effect.EffectType));
+            string[] types = Enum.GetNames(typeof(EffectType));
 
             foreach (string type in types)
             {
-                Effect.EffectType parsed = Util.ParseEnum<Effect.EffectType>(type);
+                EffectType parsed = Util.ParseEnum<EffectType>(type);
 
-                if (parsed != Effect.EffectType.Test)
+                if (parsed != EffectType.Test)
                 {
                     NativeMenu typeMenu = new NativeMenu(type);
                     mainMenu.AddSubMenu(typeMenu).Title = typeMenu.Title.Text;
@@ -164,7 +164,7 @@ namespace ChaosVDotNet
         private void OnLoad(object sender, LoadArgs e)
         {
             Effect eff = e.Loaded;
-            if (eff.Type != Effect.EffectType.Test)
+            if (eff.Type != EffectType.Test)
             {
                 if (typeMenus.ContainsKey(eff.Type))
                 {
@@ -229,7 +229,7 @@ namespace ChaosVDotNet
         private void OnUnload(object sender, UnloadArgs e)
         {
             Effect eff = e.Unloaded;
-            if (eff.Type != Effect.EffectType.Test)
+            if (eff.Type != EffectType.Test)
             {
                 if (typeMenus.ContainsKey(eff.Type))
                 {

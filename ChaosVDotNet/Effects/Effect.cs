@@ -31,27 +31,23 @@ namespace ChaosVDotNet.Effects
     [ScriptAttributes(NoDefaultInstance = true)]
     public class Effect : Script
     {
-        public enum EffectType
-        {
-            Test = -1,
-            Player,
-            Ped,
-            Vehicle,
-            Misc
-        }
-
         public string Id { get; }
         public string Name { get; }
         public EffectType Type { get; }
         private bool Continuous = false;
         private bool Running = false;
 
-        public event EventHandler OnStart;
-        public event EventHandler OnStop;
-        public event EventHandler OnTick;
+        // Internal events
+        internal event EventHandler OnStart;
+        internal event EventHandler OnStop;
+        internal event EventHandler OnTick;
+
+        // Logging events
+        public event LogEventHandler OnLog;
 
         public Effect(string Id, string Name, EffectType Type, bool isContinuous = false, bool isRunning = true)
         {
+            this.Id = Id;
             this.Name = Name;
             this.Type = Type;
             Continuous = isContinuous;
@@ -70,12 +66,23 @@ namespace ChaosVDotNet.Effects
             }
         }
 
+        public void Log(string msg)
+        {
+            OnLog?.Invoke(this, new LogArgs(msg));
+        }
+
+        public void Log(string msg, LogVerbosity level)
+        {
+            OnLog?.Invoke(this, new LogArgs(msg, level));
+        }
+
         public void Start()
         {
             if (!Running)
             {
                 Running = true;
                 OnStart?.Invoke(this, EventArgs.Empty);
+                Log("Started");
                 if (!Continuous) Stop();
             }
         }
@@ -86,6 +93,7 @@ namespace ChaosVDotNet.Effects
             {
                 Running = false;
                 OnStop?.Invoke(this, EventArgs.Empty);
+                Log("Stopped");
             }
         }
 

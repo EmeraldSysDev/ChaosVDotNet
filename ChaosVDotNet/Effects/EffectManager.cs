@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -31,11 +32,37 @@ namespace ChaosVDotNet.Effects
     [ScriptAttributes(NoDefaultInstance = true)]
     public class EffectManager : Script
     {
+        [DllImport("kernel32.dll", EntryPoint = "AllocConsole", SetLastError = true, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern int AllocConsole();
+
+        [DllImport("kernel32.dll", EntryPoint = "FreeConsole", SetLastError = true, CharSet = CharSet.Auto, CallingConvention = CallingConvention.StdCall)]
+        private static extern int FreeConsole();
+
         private readonly List<Effect> Loaded = new List<Effect>();
         public event LoadEventHandler OnLoad;
         public event UnloadEventHandler OnUnload;
 
-        public EffectManager() { }
+        public EffectManager()
+        {
+            AllocConsole();
+            Log("Hello! I have been initialized!");
+
+            Aborted += (s, e) =>
+            {
+                Log("Goodbye!");
+                FreeConsole();
+            };
+        }
+
+        internal void Log(string msg)
+        {
+            Console.WriteLine($"[ChaosVDotNet/EffectManager] {msg}");
+        }
+
+        internal void OnLog(Effect eff, LogArgs e)
+        {
+            Console.WriteLine($"[ChaosVDotNet/{eff.Id}/{e.Level.ToString().ToUpper()}] {e.Message}");
+        }
 
         /// <summary>
         /// Load <paramref name="eff"/> into the <see cref="EffectManager"/>.
@@ -45,6 +72,7 @@ namespace ChaosVDotNet.Effects
             Effect loadedEff = (Effect)InstantiateScript(eff.GetType());
             Loaded.Add(loadedEff);
             OnLoad?.Invoke(this, new LoadArgs(loadedEff));
+            loadedEff.OnLog += OnLog;
         }
 
         /// <summary>
@@ -63,13 +91,14 @@ namespace ChaosVDotNet.Effects
             {
                 DateTime startTime, endTime;
                 startTime = DateTime.Now;
-                GTA.UI.Notification.Show($"~h~[EffectManager] Loading {t.Name}~s~");
+                Log($"Loading {t.Name}");
                 Effect eff = (Effect)InstantiateScript(t);
                 Loaded.Add(eff);
                 OnLoad?.Invoke(this, new LoadArgs(eff));
+                eff.OnLog += OnLog;
                 endTime = DateTime.Now;
                 double elapsed = (endTime - startTime).TotalMilliseconds;
-                GTA.UI.Notification.Show($"~h~[EffectManager] Loaded {t.Name} in {elapsed} ms~s~");
+                Log($"Loaded {t.Name} in {elapsed} ms");
             }
 
             return Loaded;
@@ -87,6 +116,7 @@ namespace ChaosVDotNet.Effects
                     loadedEff.Abort();
                     Loaded.Remove(loadedEff);
                     OnUnload?.Invoke(this, new UnloadArgs(loadedEff));
+                    loadedEff.OnLog -= OnLog;
                     break;
                 }
             }
@@ -101,6 +131,7 @@ namespace ChaosVDotNet.Effects
             {
                 eff.Abort();
                 OnUnload?.Invoke(this, new UnloadArgs(eff));
+                eff.OnLog -= OnLog;
             }
             Loaded.Clear();
         }

@@ -6,5 +6,5 @@ using System.Threading.Tasks;
 
 namespace ChaosVDotNet.Effects
 {
-    public delegate void UnloadEventHandler(object sender, UnloadArgs e);
+    public delegate void UnloadEventHandler(EffectManager sender, UnloadArgs e);
 }
