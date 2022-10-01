@@ -34,7 +34,7 @@ namespace ChaosVDotNet.Effects
         public string Id { get; }
         public string Name { get; }
         public EffectType Type { get; }
-        private bool Continuous = false;
+        public bool Continuous { get; } = false;
         private bool Running = false;
 
         // Internal events
@@ -105,6 +105,36 @@ namespace ChaosVDotNet.Effects
         public bool IsContinuous()
         {
             return Continuous;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj is Effect)
+            {
+                if (ReferenceEquals(this, obj)) return true;
+
+                Effect other = (Effect)obj;
+
+                bool idCheck = Id == other.Id;
+                bool nameCheck = Name == other.Name;
+                bool typeCheck = Type == other.Type;
+                bool continuousCheck = Continuous == other.Continuous;
+
+                return idCheck && nameCheck && typeCheck && continuousCheck;
+            }
+
+            return false;
+        }
+
+        public static bool operator ==(Effect left, Effect right)
+        {
+            if (ReferenceEquals(left, right)) return true;
+            return left is null ? right is null : left.Equals(right);
+        }
+
+        public static bool operator !=(Effect left, Effect right)
+        {
+            return !(left == right);
         }
     }
 }
