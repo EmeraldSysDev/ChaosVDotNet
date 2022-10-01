@@ -130,6 +130,7 @@
     <Compile Include="Effects\db\Ped\PropHunt.cs" />
     <Compile Include="Effects\db\Player\GravityField.cs" />
     <Compile Include="Effects\db\Player\Kickflip.cs" />
+    <Compile Include="Effects\db\Player\RagdollController.cs" />
     <Compile Include="Effects\db\Player\Teleport.cs" />
     <Compile Include="Effects\db\Player\TPAll.cs" />
     <Compile Include="Effects\db\Vehicle\Beyblades.cs" />
