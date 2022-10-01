@@ -38,7 +38,7 @@ namespace ChaosVDotNet.Effects.db
                             // Is the driver alive?
                             if (driver.IsAlive)
                             {
-                                bool vehBraking = veh.BrakePower > 0.0f; // Vehicle has brake power before proceeding
+                                bool vehBraking = EffectUtil.IsVehicleBraking(veh); // Vehicle has brake power before proceeding
                                 if (vehBraking)
                                 {
                                     Function.Call(Hash.APPLY_FORCE_TO_ENTITY, veh, 0, 0.0f, 50.0f, 0.0f, 0.0f, 0.0f, 0.0f, 0, true, true, true, false, true);

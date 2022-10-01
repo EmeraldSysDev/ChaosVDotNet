@@ -31,11 +31,8 @@ namespace ChaosVDotNet.Effects.db
             if (playerPed.IsInVehicle())
             {
                 Vehicle veh = playerPed.CurrentVehicle;
-                if (veh.Exists())
-                {
-                    bool vehBraking = veh.BrakePower > 0.0f;
-                    GTA.UI.Notification.Show(vehBraking.ToString());
-                }
+                bool vehBraking = EffectUtil.IsVehicleBraking(veh);
+                GTA.UI.Notification.Show(vehBraking.ToString());
             }
 
             Wait(3000);
