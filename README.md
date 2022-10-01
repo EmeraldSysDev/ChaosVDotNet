@@ -84,7 +84,7 @@ See the [open issues](https://github.com/EmeraldSysDev/ChaosVDotNet/issues) for 
 <!-- LICENSE -->
 ## License
 
-Copyright (c) 2022 Ryan Omasta - ryand@emeraldsys.xyz
+Copyright (C) 2022 Ryan Omasta - ryand@emeraldsys.xyz
 All rights reserved.
 
 Distributed under the GPL-3.0 License (GNU General Public License v3.0). See `LICENSE` for more information. All files except for effect files will have a header explaining `LICENSE` information.
