@@ -144,7 +144,7 @@
     <Compile Include="Effects\Effect.cs" />
     <Compile Include="Effects\EffectManager.cs" />
     <Compile Include="Effects\EffectType.cs" />
-	<Compile Include="Effects\EffectUtil.cs" />
+	  <Compile Include="Effects\EffectUtil.cs" />
     <Compile Include="Effects\LoadArgs.cs" />
     <Compile Include="Effects\LoadEventHandler.cs" />
     <Compile Include="Effects\LogArgs.cs" />
