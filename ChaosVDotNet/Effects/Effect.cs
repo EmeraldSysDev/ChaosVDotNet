@@ -76,6 +76,26 @@ namespace ChaosVDotNet.Effects
             OnLog?.Invoke(this, new LogArgs(msg, level));
         }
 
+        public void Info(string msg)
+        {
+            Log(msg);
+        }
+
+        public void Warn(string msg)
+        {
+            Log(msg, LogVerbosity.Warning);
+        }
+
+        public void Error(string msg)
+        {
+            Log(msg, LogVerbosity.Error);
+        }
+
+        public void LogDebug(string msg)
+        {
+            Log(msg, LogVerbosity.Debug);
+        }
+
         public void Start()
         {
             if (!Running)
